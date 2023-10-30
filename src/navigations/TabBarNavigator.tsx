@@ -9,7 +9,7 @@ import HomeScreen from '../screens/homescreens';
 import AppHeader from '../components/common/header/AppHeader';
 import { getScaledFont } from '../components/common/FontSize';
 import { appBgColour, appThemeColour } from '../constants';
-import MenuScreen from '../screens/menuscreens';
+import AboutusScreen from '../screens/aboutscreens';
 
 const TabBarNavigator = () =>{
     const Tab = createBottomTabNavigator();
@@ -51,7 +51,7 @@ const TabBarNavigator = () =>{
                 )
               }}
             />
-            <Tab.Screen name="Favourite" component={ProfileScreen}
+            <Tab.Screen name="Menu" component={ProfileScreen}
               options={{
                 tabBarIcon: ({ color, size }) => (
                   <Image style={{
@@ -63,7 +63,7 @@ const TabBarNavigator = () =>{
                 )
               }}
             />
-            <Tab.Screen name="Profile" component={MenuScreen}
+            <Tab.Screen name="About-us" component={AboutusScreen}
               options={{
                 headerShown: false,
                 tabBarIcon: ({ color, size }) => (

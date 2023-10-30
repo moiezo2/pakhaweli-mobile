@@ -20,7 +20,7 @@ const Loading = () => {
         <KeyboardAvoidingView style={{ flex : 1, backgroundColor : 'black' }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             {
                 onBoardingDone
-                    ? token
+                    ? true
                         ?
                         <HomeNavigator />
                         :
