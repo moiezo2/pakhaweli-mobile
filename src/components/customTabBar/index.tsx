@@ -24,7 +24,7 @@ const CustomTabBar = ({ state, navigation, descriptors, animation, tabBarStyle, 
         }
     };
     return (
-        <View style={[{height : 60},tabBarContainerStyle]}>
+        // <View style={[{height : 60},tabBarContainerStyle]}>
             <View style={[bottomTabBarstyles.container,tabBarStyle]}>
                 {
                     state.routes.map((route: any, index: number) => {
@@ -62,23 +62,22 @@ const CustomTabBar = ({ state, navigation, descriptors, animation, tabBarStyle, 
                         };
 
                         return (
-                            <View key={route.key} style={[bottomTabBarstyles.tabContainer,tabBarStyle]}>
+                            <View key={route.key} style={[bottomTabBarstyles.tabContainer,tabBarStyle,{borderRightWidth : index == state.routes.length - 1 ? 0 : 0.5}]}>
                                 <TouchableOpacity onPress={onPress} style={bottomTabBarstyles.pressableStyle}>
                                     {TabBarIcon && <TabBarIcon color={isFocused ? tabBarActiveTintColor : tabBarInactiveTintColor} size={wp('7%')} />}
-                                    {label && <Text style={{ color: isFocused ? tabBarActiveTintColor : tabBarInactiveTintColor, fontSize: getScaledFont(16), fontWeight: 'bold' }}>{label}</Text>}
+                                    {label && <Text style={{ color: isFocused ? tabBarActiveTintColor : tabBarInactiveTintColor, fontSize: getScaledFont(12) }}>{label}</Text>}
                                 </TouchableOpacity>
                             </View>
                         )
                     })
                 }
 
-
             </View>
-            {animation && <Animated.View style={[bottomTabBarstyles.animationStyle,{ transform: [
-                    { translateX: fadeAnim }
-                ]
-            }]} />}
-        </View>
+        //     {animation && <Animated.View style={[bottomTabBarstyles.animationStyle,{ transform: [
+        //             { translateX: fadeAnim }
+        //         ]
+        //     }]} />}
+        // </View>
     )
 
 }

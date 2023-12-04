@@ -1,7 +1,9 @@
 export type foodCardParams = {
     title : String,
     description : String,
-    price : String
+    price : String,
+    imageUrl : String,
+    rating : any
 }
 
 export type MenuCardParams = {
@@ -9,5 +11,6 @@ export type MenuCardParams = {
     imageUrl : String,
     price : String,
     rating : number,
-    sectionEnd : boolean
+    sectionEnd : boolean,
+    description? : String,
 }

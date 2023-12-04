@@ -1,10 +1,15 @@
 import { create } from 'zustand';
 import firestore from '@react-native-firebase/firestore';
+import { foodCardParams } from '../models/commonModels';
 
 export const useMenuStore = create((set) => ({
     menu: {
         loading: undefined,
         data: []
+    },
+    deals : {
+        loading : false,
+        data : []
     },
     getMenu: async () => {
         let latestData: any = []
@@ -14,14 +19,6 @@ export const useMenuStore = create((set) => ({
         // console.log('heheahha-->',(await usersCollection.get()).)
         usersCollection.get().then(val => {
             val.forEach(documentSnapshot => {
-                //   firestore().doc(`menu/${documentSnapshot.id}`).get().then(value => {
-                //     console.log('inside--->>>',value.data())
-                //     value.forEach(snapi => {
-
-                //     })
-                //   })
-                // documentSnapshot.data()
-
                 const index = latestData.findIndex((val: any) => val.type == documentSnapshot.data().type)
                 if (index > -1) {
                     latestData[index].data.push(documentSnapshot.data())
@@ -34,6 +31,16 @@ export const useMenuStore = create((set) => ({
 
         })
         // const response = await getUser();
+    },
+    getDeals : async () => {
+        let deals :foodCardParams[] = []
+        set((state: any) => ({ deals: { data: [], loading: true } }))
+        firestore().collection('deals').get().then((val)=>{
+            val.forEach(snapshot => {
+                deals.push(snapshot.data() as foodCardParams)
+            })
+            set((state: any) => ({ deals: { data: deals, loading: false } }))
+        });
     },
     removeMenu: () => set({ menu: [] }),
 }))

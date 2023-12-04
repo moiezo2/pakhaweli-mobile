@@ -18,8 +18,8 @@ const TabBarNavigator = () =>{
           <Tab.Navigator
             tabBar={(props)=> <CustomTabBar {...props} animation={false}/>}
             screenOptions={() => ({              
-              tabBarActiveTintColor: 'tomato',
-              tabBarInactiveTintColor: 'gray',
+              tabBarActiveTintColor: '#008143',
+              tabBarInactiveTintColor: '#999999',
               header: ({ options ,route}) => {
                 if(!options.headerShown) return;
                 return (
@@ -37,10 +37,11 @@ const TabBarNavigator = () =>{
               name="Home"
               component={HomeScreen}
               initialParams={{
-                tabBarIcon : 'home'
+                tabBarIcon : 'home',
               }}
               options={{
                 headerShown: false, tabBarBadge: 3,
+                tabBarLabel : 'Home',
                 tabBarIcon: ({ color, size }) => (
                   <Image style={{
                     tintColor : color,
@@ -53,12 +54,13 @@ const TabBarNavigator = () =>{
             />
             <Tab.Screen name="Menu" component={ProfileScreen}
               options={{
+                tabBarLabel : 'Menu',
                 tabBarIcon: ({ color, size }) => (
                   <Image style={{
                     tintColor : color,
                     width : size,
                     height : undefined,
-                    aspectRatio : .8
+                    aspectRatio : 1.18
                   }} source={require("../assets/tabBarIcons/Menu_icon.png")}/>
                 )
               }}
@@ -66,6 +68,7 @@ const TabBarNavigator = () =>{
             <Tab.Screen name="About-us" component={AboutusScreen}
               options={{
                 headerShown: false,
+                tabBarLabel : 'Profile',
                 tabBarIcon: ({ color, size }) => (
                   <Image style={{
                     tintColor : color,
