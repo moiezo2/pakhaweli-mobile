@@ -19,6 +19,7 @@ import FoodCard from '../../components/common/foodCards/FoodCard';
 import { useMenuStore } from '../../stores/menuStore';
 import SkeletonLoading from '../../components/skeletons';
 import FoodCardSkeleton from '../../components/skeletons/FoodCardSkeleton';
+import { themeColor } from '../../constants';
 
 type SectionProps = PropsWithChildren<{
     navigation: NavigationProp<any>;
@@ -51,7 +52,7 @@ const HomeScreen = ({ navigation }: SectionProps) => {
     return (
         <View style={styles.container}>
             <View style={{ flex: 1, minHeight: hp('10%'), rowGap: 20, alignItems: 'center' }}>
-                <Text style={{ fontSize: getScaledFont(32), fontWeight: 'bold', color: '#000000', width: wp('50%'), marginTop: hp('3%'),alignSelf : 'flex-start',marginLeft : '2.5%' }}><Text style={{color : '#008143'}}>Delicious</Text> food for you</Text>
+                <Text style={{ fontSize: getScaledFont(32), fontWeight: 'bold', color: '#000000', width: wp('50%'), marginTop: hp('3%'),alignSelf : 'flex-start',marginLeft : '2.5%' }}><Text style={{color : themeColor}}>Delicious</Text> food for you</Text>
                 <Carousel
                     // ref={(c) => { this._carousel = c; }}
                     data={["Hello","hahaha"]}
@@ -66,14 +67,14 @@ const HomeScreen = ({ navigation }: SectionProps) => {
                 />
                 {/* <InputField disabledLabel inputStyles={{height : '100%', width : '90%', fontSize : getScaledFont(20), fontWeight : 'bold'}} placeholder='Search' containerStyle={styles.searchField}/> */}
             </View>
-            <Text style={{ textAlign: 'left', width: '95%', fontSize: getScaledFont(24), fontWeight: '700', color: '#000000' }}><Text style={{color : '#008143'}}>Exclusive</Text> Deals</Text>
+            <Text style={{ textAlign: 'left', width: '95%', fontSize: getScaledFont(24), fontWeight: '700', color: '#000000' }}><Text style={{color : themeColor}}>Exclusive</Text> Deals</Text>
             <ScrollView showsHorizontalScrollIndicator={false} contentContainerStyle={{ justifyContent: 'center', alignItems: 'center', columnGap: 20, height: hp('45%') }} horizontal style={{ flex: 1, flexDirection: 'row', paddingVertical: '5%' }}>
                 {
                     !dealsLoading ?
                     dealsData.map(data => (
-                        <FoodCard {...data} />
+                        <FoodCard key={data.id} {...data} />
                     ))
-                    : [1,2,3].map(() => <FoodCardSkeleton/>)
+                    : [1,2,3].map((val,index) => <FoodCardSkeleton key={index}/>)
                 }
             </ScrollView>
         </View>

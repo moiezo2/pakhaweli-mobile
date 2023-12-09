@@ -1,5 +1,5 @@
-export const appThemeColour = "#ED7041";
-export const appBgColour = "#F2F2F2"
+export const appBgColour = "#F2F2F2";
+export const themeColor = '#008143';
 
 
 
@@ -41,3 +41,4 @@ export const menuDummyData = [
     },
     
 ]
+

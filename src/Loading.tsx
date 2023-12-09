@@ -21,7 +21,7 @@ const Loading = () => {
     },0)
 
     return (
-        <KeyboardAvoidingView style={{ flex : 1, backgroundColor : 'black' }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        <KeyboardAvoidingView style={{ flex : 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             {
                 onBoardingDone
                     ? true

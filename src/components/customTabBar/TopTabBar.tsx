@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Tab, Text, TabView } from '@rneui/themed';
 import { TopTabBarParams } from '../../models/customTabBarProps';
-import { appThemeColour } from '../../constants';
+import { themeColor } from '../../constants';
 import { widthPercentageToDP as wp } from '../common/ResponsiveScreen';
 import { getScaledFont } from '../common/FontSize';
 import { StyleSheet } from 'react-native';
@@ -20,7 +20,7 @@ export default ({
         value={index}
         onChange={(e) => setIndex(e)}
         indicatorStyle={{
-          backgroundColor: appThemeColour,
+          backgroundColor: themeColor,
           height: 3,
           width: '20%',
           marginLeft: `${11 + (index * 9)}%`

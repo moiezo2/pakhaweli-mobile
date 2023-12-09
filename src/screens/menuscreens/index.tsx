@@ -8,7 +8,7 @@ import {
     ActivityIndicator,
     FlatList
 } from 'react-native';
-import { appBgColour, menuDummyData } from '../../constants';
+import { appBgColour, menuDummyData, themeColor } from '../../constants';
 import MenueItemCard from '../../components/common/foodCards/MenuItemCard';
 import InputField from '../../components/common/InputField';
 import { getScaledFont } from '../../components/common/FontSize';
@@ -37,20 +37,19 @@ const MenuScreen = ({ navigation }: SectionProps) => {
     }, [menuData])
 
     const renderItem = ({ item, index }) => (
-        <View id={`${index}`} style={{ backgroundColor: '#FFFFFF', marginTop: index == 0 ? 0 : 20, marginBottom: index == menu.length - 1 ? '21%' : 0, width: '95%' }}>
-            <View style={{ width: '88%', marginVertical: 10, flexDirection: 'row', columnGap: 5 }}>{item.type.split(' ').map((value, index) => <Text style={{ color: index == item.type.split(' ').length - 1 ? '#008143' : '#393A3A', fontSize: getScaledFont(18), fontWeight: '700' }}>{value}</Text>)}</View>
+        <View key={item.type} style={{ backgroundColor: '#FFFFFF', marginTop: index == 0 ? 0 : 20, marginBottom: index == menu.length - 1 ? '21%' : 0, width: '95%' }}>
+            <View style={{ width: '88%', marginVertical: 10, flexDirection: 'row', columnGap: 5 }}>{item.type.split(' ').map((value, index) => <Text style={{ color: index == item.type.split(' ').length - 1 ? themeColor : '#393A3A', fontSize: getScaledFont(18), fontWeight: '700' }}>{value}</Text>)}</View>
             {item.data.map((value, subIndex) => (
-                <MenueItemCard {...value} sectionEnd={subIndex == item.data.length - 1} />
+                <MenueItemCard key={value.id} {...value} sectionEnd={subIndex == item.data.length - 1} />
             ))}
         </View>
     )
 
     const renderSkeleton = () => (
         <View style={{ width: '100%', height: '100%' }}>
-            {[1, 2, 3, 4, 5].map((val, index) => <MenuCardSkeleton index={index} />)}
+            {[1, 2, 3, 4, 5].map((val, index) => <MenuCardSkeleton key={index} index={index} />)}
         </View>
     )
-
     return (
         <View style={{ backgroundColor: '#FFFFFF', flex: 1, alignItems: 'center' }}>
             <View style={{ backgroundColor: '#FFFFFF' }}>
@@ -65,10 +64,10 @@ const MenuScreen = ({ navigation }: SectionProps) => {
                     ListHeaderComponentStyle={{ height: 35, width: wp('97.5%'), backgroundColor: '#FFFFFF' }}
                     contentContainerStyle={{ width: wp('100%'), alignItems: 'center', justifyContent: 'center' }}
                     ListHeaderComponent={() => (<ScrollView horizontal style={{ height: '100%' }} contentContainerStyle={{ alignItems: 'flex-start', columnGap: 10 }} >{menu.map((val, index) => (
-                        <TouchableOpacity onPress={() => flatlistRef?.current?.scrollToIndex({
+                        <TouchableOpacity key={val.title} onPress={() => flatlistRef?.current?.scrollToIndex({
                             animated: true,
                             index: index,
-                        })} style={{ height: '85%', paddingVertical: 5, paddingHorizontal: 10, borderRadius: wp('2.5%'), backgroundColor: index == activeType ? '#008143' : '#FAFAFA' }}>
+                        })} style={{ height: '85%', paddingVertical: 5, paddingHorizontal: 10, borderRadius: wp('2.5%'), backgroundColor: index == activeType ? themeColor : '#FAFAFA' }}>
                             <Text style={{ color: index == activeType ? '#FFFFFF' : '#666666', fontSize: getScaledFont(14) }}>{val.type}</Text>
                         </TouchableOpacity>
                     ))

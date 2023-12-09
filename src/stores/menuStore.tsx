@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import firestore from '@react-native-firebase/firestore';
-import { foodCardParams } from '../models/commonModels';
+import { MenuCardParams} from '../models/commonModels';
 
 export const useMenuStore = create((set) => ({
     menu: {
@@ -8,7 +8,7 @@ export const useMenuStore = create((set) => ({
         data: []
     },
     deals : {
-        loading : false,
+        loading : true,
         data : []
     },
     getMenu: async () => {
@@ -21,9 +21,9 @@ export const useMenuStore = create((set) => ({
             val.forEach(documentSnapshot => {
                 const index = latestData.findIndex((val: any) => val.type == documentSnapshot.data().type)
                 if (index > -1) {
-                    latestData[index].data.push(documentSnapshot.data())
+                    latestData[index].data.push({id : documentSnapshot.id , ...documentSnapshot.data()})
                 } else {
-                    latestData.push({ type: documentSnapshot.data().type, data: [documentSnapshot.data()] })
+                    latestData.push({ type: documentSnapshot.data().type, data: [{id : documentSnapshot.id , ...documentSnapshot.data()}] })
                 }
 
             })
@@ -33,11 +33,12 @@ export const useMenuStore = create((set) => ({
         // const response = await getUser();
     },
     getDeals : async () => {
-        let deals :foodCardParams[] = []
+        let deals : MenuCardParams[] = []
         set((state: any) => ({ deals: { data: [], loading: true } }))
         firestore().collection('deals').get().then((val)=>{
             val.forEach(snapshot => {
-                deals.push(snapshot.data() as foodCardParams)
+                const data : MenuCardParams = {id : snapshot.id , ...snapshot.data()} 
+                deals.push(data)
             })
             set((state: any) => ({ deals: { data: deals, loading: false } }))
         });

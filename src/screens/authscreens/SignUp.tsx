@@ -6,7 +6,7 @@ import { signUpScreenStyles } from './Styles';
 import InputField from '../../components/common/InputField';
 import Button from '../../components/Button';
 import { getScaledFont } from '../../components/common/FontSize';
-import { appThemeColour } from '../../constants';
+import { themeColor } from '../../constants';
 import { widthPercentageToDP as wp } from '../../components/common/ResponsiveScreen';
 import { PersistStore } from '../../stores/PersistStore';
 import { Formik } from 'formik';
@@ -37,7 +37,7 @@ const SignUpScreen = () => {
                         console.log('SignUp',values)
                         handleSubmit()
                         // signupApi({})
-                    }} containerStyle={{ width: '90%', height: '15%', backgroundColor: appThemeColour, justifyContent: 'center', marginTop: '20%', borderRadius: wp('10%') }}>
+                    }} containerStyle={{ width: '90%', height: '15%', backgroundColor: themeColor, justifyContent: 'center', marginTop: '20%', borderRadius: wp('10%') }}>
                         <Text style={{ textAlign: 'center', color: '#FFFFFF', fontWeight: '600', fontSize: getScaledFont(16) }}>Login</Text>
                     </Button>
                 </View>

@@ -3,13 +3,14 @@ import {
   Image
 } from 'react-native';
 
-import ProfileScreen from '../screens/menuscreens';
+import MenuScreen from '../screens/menuscreens';
 import CustomTabBar from '../components/customTabBar';
 import HomeScreen from '../screens/homescreens';
 import AppHeader from '../components/common/header/AppHeader';
 import { getScaledFont } from '../components/common/FontSize';
-import { appBgColour, appThemeColour } from '../constants';
-import AboutusScreen from '../screens/aboutscreens';
+import { appBgColour, themeColor } from '../constants';
+import CartScreen from '../screens/cartscreens';
+import { useCartStore } from '../stores/cartStore';
 
 const TabBarNavigator = () =>{
     const Tab = createBottomTabNavigator();
@@ -18,7 +19,7 @@ const TabBarNavigator = () =>{
           <Tab.Navigator
             tabBar={(props)=> <CustomTabBar {...props} animation={false}/>}
             screenOptions={() => ({              
-              tabBarActiveTintColor: '#008143',
+              tabBarActiveTintColor: themeColor,
               tabBarInactiveTintColor: '#999999',
               header: ({ options ,route}) => {
                 if(!options.headerShown) return;
@@ -40,42 +41,44 @@ const TabBarNavigator = () =>{
                 tabBarIcon : 'home',
               }}
               options={{
-                headerShown: false, tabBarBadge: 3,
+                headerShown: false,
                 tabBarLabel : 'Home',
                 tabBarIcon: ({ color, size }) => (
                   <Image style={{
                     tintColor : color,
                     width : size,
                     height : undefined,
-                    aspectRatio : 1,
+                    aspectRatio : 1.25,
                   }} source={require("../assets/tabBarIcons/home.png")}/>
                 )
               }}
             />
-            <Tab.Screen name="Menu" component={ProfileScreen}
+            <Tab.Screen name="Menu" component={MenuScreen}
               options={{
+                headerShown: false,
                 tabBarLabel : 'Menu',
                 tabBarIcon: ({ color, size }) => (
                   <Image style={{
                     tintColor : color,
                     width : size,
                     height : undefined,
-                    aspectRatio : 1.18
+                    aspectRatio : 1.25
                   }} source={require("../assets/tabBarIcons/Menu_icon.png")}/>
                 )
               }}
             />
-            <Tab.Screen name="About-us" component={AboutusScreen}
+            <Tab.Screen name="Cart" component={CartScreen}
               options={{
                 headerShown: false,
-                tabBarLabel : 'Profile',
+                tabBarLabel : 'Cart',
+                tabBarBadge : useCartStore((state: any) => state.cart).length,
                 tabBarIcon: ({ color, size }) => (
                   <Image style={{
                     tintColor : color,
                     width : size,
                     height : undefined,
-                    aspectRatio : 1
-                  }} source={require("../assets/tabBarIcons/user.png")}/>
+                    aspectRatio : 1.25
+                  }} source={require("../assets/tabBarIcons/cart.png")}/>
                 )
               }}
             />
