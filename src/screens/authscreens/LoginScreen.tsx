@@ -7,7 +7,7 @@ import InputField from '../../components/common/InputField';
 import { widthPercentageToDP as wp } from '../../components/common/ResponsiveScreen';
 import { getScaledFont } from '../../components/common/FontSize';
 import {themeColor } from '../../constants';
-import Button from '../../components/Button';
+import Button from '../../components/common/Button';
 import { useNavigation } from '@react-navigation/native';
 import { PersistStore } from '../../stores/PersistStore';
 

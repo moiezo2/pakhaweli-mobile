@@ -37,7 +37,7 @@ const MenuScreen = ({ navigation }: SectionProps) => {
     }, [menuData])
 
     const renderItem = ({ item, index }) => (
-        <View key={item.type} style={{ backgroundColor: '#FFFFFF', marginTop: index == 0 ? 0 : 20, marginBottom: index == menu.length - 1 ? '21%' : 0, width: '95%' }}>
+        <View key={item.type} style={{ backgroundColor: '#FFFFFF', marginTop: index == 0 ? 0 : 20, marginBottom: index == menu.length - 1 ? 80 : 0, width: '95%' }}>
             <View style={{ width: '88%', marginVertical: 10, flexDirection: 'row', columnGap: 5 }}>{item.type.split(' ').map((value, index) => <Text style={{ color: index == item.type.split(' ').length - 1 ? themeColor : '#393A3A', fontSize: getScaledFont(18), fontWeight: '700' }}>{value}</Text>)}</View>
             {item.data.map((value, subIndex) => (
                 <MenueItemCard key={value.id} {...value} sectionEnd={subIndex == item.data.length - 1} />
@@ -53,7 +53,14 @@ const MenuScreen = ({ navigation }: SectionProps) => {
     return (
         <View style={{ backgroundColor: '#FFFFFF', flex: 1, alignItems: 'center' }}>
             <View style={{ backgroundColor: '#FFFFFF' }}>
-                <InputField disabledLabel inputStyles={{ height: '100%', width: '80%', fontSize: getScaledFont(20), fontWeight: '400' }} placeholder='Search' containerStyle={styles.searchField} />
+                <InputField handleChange={(item) => {
+                    let refinedList = []
+                    menuData.data.forEach(val => {
+                        let newData = val.data.filter(value => value.title.toLowerCase().includes(item.toLowerCase()))
+                        if (newData.length > 0) refinedList.push({ type: val.type, data: newData })
+                    })
+                    setMenu(refinedList)
+                }} disabledLabel placeholderTextColor='#393A3A' inputStyles={{ height: '100%', width: '80%', fontSize: getScaledFont(18), fontWeight: '400', color: '#393A3A' }} placeholder='Search' containerStyle={styles.searchField} />
             </View>
             {menuData.loading ? renderSkeleton()
                 : <FlatList
@@ -91,7 +98,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingHorizontal: '5%',
         columnGap: 10,
-        height: hp('7%'),
+        height: hp('6%'),
         width: '100%',
         backgroundColor: '#EFEEEE',
         margin: 20

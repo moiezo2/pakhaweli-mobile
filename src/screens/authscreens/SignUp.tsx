@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import { signUpScreenStyles } from './Styles';
 import InputField from '../../components/common/InputField';
-import Button from '../../components/Button';
+import Button from '../../components/common/Button';
 import { getScaledFont } from '../../components/common/FontSize';
 import { themeColor } from '../../constants';
 import { widthPercentageToDP as wp } from '../../components/common/ResponsiveScreen';

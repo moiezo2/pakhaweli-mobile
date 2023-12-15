@@ -14,12 +14,16 @@ const Loading = () => {
     const token = PersistStore((state: any) => state.token);
     const onBoardingDone = PersistStore((state: any) => state.onBoardingDone);
     const _hasHydrated = PersistStore((state: any) => state._hasHydrated);
-    if (!_hasHydrated) return;
-    setTimeout(()=>{
-        SplashScreen.hide();
-
-    },0)
-
+    const fetchConfig = PersistStore((state: any) => state.fetchConfig);
+    useEffect(()=>{
+        if (!_hasHydrated) return;
+        fetchConfig();
+        setTimeout(()=>{
+            SplashScreen.hide();
+    
+    
+        },0)
+    },[_hasHydrated]) 
     return (
         <KeyboardAvoidingView style={{ flex : 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             {

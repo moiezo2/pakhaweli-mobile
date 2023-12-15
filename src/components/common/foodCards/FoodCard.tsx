@@ -21,7 +21,7 @@ import { useCartStore } from '../../../stores/cartStore';
 
 
 
-const FoodCard: React.FC<MenuCardParams> = ({ title, description, price, imageUrl,rating }: MenuCardParams) => {
+const FoodCard: React.FC<MenuCardParams> = ({ title, description, price, imageUrl,rating,id }: MenuCardParams) => {
     
     const addToCart = useCartStore((state: any) => state.addToCart)
 
@@ -53,7 +53,7 @@ const FoodCard: React.FC<MenuCardParams> = ({ title, description, price, imageUr
                 />
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', width: '90%' }}>
                     <Text style={{ fontSize: getScaledFont(14), color: themeColor, fontWeight: '600' }}>{price}</Text>
-                    <TouchableOpacity onPress={()=> addToCart({title, description, price, imageUrl,rating })} style={{ backgroundColor: themeColor, width: '30%', height: 25, alignItems: 'center', justifyContent: 'center', borderRadius: wp('5%') }}>
+                    <TouchableOpacity onPress={()=> addToCart({title, description, price, imageUrl,rating,id })} style={{ backgroundColor: themeColor, width: '30%', height: 25, alignItems: 'center', justifyContent: 'center', borderRadius: wp('5%') }}>
                         <Text style={{ color: '#FFFFFF', fontSize: getScaledFont(10) }}>Add Cart</Text>
                     </TouchableOpacity>
                 </View>

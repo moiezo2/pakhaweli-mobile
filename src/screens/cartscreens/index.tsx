@@ -5,22 +5,31 @@ import {
     Image,
     TouchableOpacity,
     StyleSheet,
-    TextInput
+    TextInput,
+    Linking,
+    ScrollView,
+    Alert
 } from 'react-native';
+import GetLocation from 'react-native-get-location';
+
+
 import { getScaledFont } from '../../components/common/FontSize';
 import { useCartStore } from '../../stores/cartStore';
 import EmptyCart from './EmptyCart';
 import CheckoutCard from '../../components/common/foodCards/CheckoutCards';
 import { CheckoutCardParams, MenuCardParams } from '../../models/commonModels';
-import { ScrollView } from 'react-native';
-import { Button } from '../../components/common/Button';
+import Button from '../../components/common/Button';
 import { widthPercentageToDP as wp } from '../../components/common/ResponsiveScreen';
+import { PersistStore } from '../../stores/PersistStore';
 
 const CartScreen = ({
 
 }) => {
     const cart = useCartStore((state: any) => state.cart);
+    const clearCart = useCartStore((state: any) => state.clearCart);
     const subTotal = useCartStore((state: any) => state.subTotal);
+    const config = PersistStore((state: any) => state.config);
+    const [checkoutLoading,setCheckoutLoading] = useState(false)
 
     return (
         <View style={styles.container}>
@@ -30,7 +39,7 @@ const CartScreen = ({
                 </View>
                 <ScrollView style={styles.scrollContainer}>
                     {
-                        cart.map((val: CheckoutCardParams) => <CheckoutCard {...val} />)
+                        cart.map((val: CheckoutCardParams) => <CheckoutCard key={val.id} {...val} />)
                     }
                 </ScrollView>
                 <View style={styles.orderSummary}>
@@ -47,8 +56,29 @@ const CartScreen = ({
                     <TextInput style={styles.coupenInput} placeholderTextColor={'#999999'} placeholder='Enter Voucher Code' onChange={()=>{}}/>
                     <Button containerStyle={styles.applyCoupen} text={"Apply"}/>
                 </View>
-                <Button containerStyle={styles.checkoutButton} textStyle={styles.checkoutButtonText} text={"Proceed to checkout"}/>
-
+                <Button loading={checkoutLoading} containerStyle={styles.checkoutButton} onPress={()=>{
+                    let messageBody : any = ''
+                    setCheckoutLoading(true);
+                    cart.forEach((val,index) => messageBody = messageBody + `${index}. ${val.title}\n quantity : ${val.quantity}\n\n`);
+                    GetLocation.getCurrentPosition({
+                        enableHighAccuracy: true,
+                        timeout: 60000,
+                    })
+                    .then(location => {
+                        Linking.openURL(`whatsapp://send?phone=${config?.number ? config?.number :+971503834583}&text=${messageBody}\nlocation= ${location.latitude} ${location.longitude}`)
+                        setCheckoutLoading(false);
+                        setTimeout(()=>{
+                            clearCart()
+                        },1000) 
+                    })
+                    .catch(error => {
+                        const { code, message } = error;
+                        console.warn(code, message);
+                        Alert.alert('Location','Enable location permission from settings')
+                        setCheckoutLoading(false);
+                    })
+                   
+                    }} textStyle={styles.checkoutButtonText} text={"Place order"}/>
             </> :
                 <EmptyCart />
             }

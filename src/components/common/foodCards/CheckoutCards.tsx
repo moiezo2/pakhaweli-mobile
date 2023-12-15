@@ -12,7 +12,7 @@ import { themeColor } from '../../../constants';
 import { CheckoutCardParams } from '../../../models/commonModels';
 import LazyImage from '../LazyImage';
 import { useCartStore } from '../../../stores/cartStore';
-import { Button } from '../Button';
+import Button from '../Button';
 
 
 const CheckoutCard: React.FC<CheckoutCardParams> = ({ title, price, imageUrl, quantity, description, id }: CheckoutCardParams) => {
@@ -28,11 +28,11 @@ const CheckoutCard: React.FC<CheckoutCardParams> = ({ title, price, imageUrl, qu
                 <Text numberOfLines={2} style={styles.description}>{description ? description : 'Lorem ipsum dolor sit amet, consectetuer adipiscingelit, sed diam nonummy nibh euismod.'}</Text>
 
                 <View style={styles.section3}>
-                    <Button text={'Delete'} action={() => removeFromCart(id)} />
+                    <Button text={'Delete'} onPress={() => removeFromCart(id)} />
                     <View style={styles.quntityContainer}>
-                        <Button textStyle={{ color: '#393A3A', fontWeight: '400', fontSize: getScaledFont(14) }} disabled={quantity < 2} action={() => reduceQuantity(id)} text={'-'} containerStyle={styles.quantityButton} />
+                        <Button textStyle={{ color: '#393A3A', fontWeight: '400', fontSize: getScaledFont(14) }} disabled={quantity < 2} onPress={() => reduceQuantity(id)} text={'-'} containerStyle={styles.quantityButton} />
                         <Text style={{ fontSize: getScaledFont(14), color: '#393A3A', fontWeight: '700' }}>{quantity}</Text>
-                        <Button textStyle={{ color: '#393A3A', fontWeight: '400', fontSize: getScaledFont(14) }} text={'+'} action={() => addQuantity(id)} containerStyle={styles.quantityButton} />
+                        <Button textStyle={{ color: '#393A3A', fontWeight: '400', fontSize: getScaledFont(14) }} text={'+'} onPress={() => addQuantity(id)} containerStyle={styles.quantityButton} />
                     </View>
                 </View>
             </View>

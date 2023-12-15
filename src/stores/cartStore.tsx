@@ -24,7 +24,7 @@ export const useCartStore = create(persist((set,get : any) => ({
         cartState.splice(index,1)
         set((state: any) => ({ cart: [...cartState],subTotal : state.subTotal - deductionAmount}))
     },
-    clearCart: () => set({ menu: [] }),
+    clearCart: () => set({ cart: [],subTotal : 0 }),
     reduceQuantity : async (id : String) => {
         let cartState =  get().cart;
         const index = cartState.findIndex((val : CheckoutCardParams) => val.id == id);

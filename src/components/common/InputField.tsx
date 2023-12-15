@@ -13,14 +13,15 @@ const InputField = ({
     value,
     customLeftIcon = null,
     placeholder,
-    disableLeftIcon
+    disableLeftIcon,
+    placeholderTextColor
 } : any) =>{
     // const [value,setValue] = useState<any>("");
     return(
         <View style={[styles.conatiner,containerStyle]}>
             {!disableLeftIcon && <Image source={require("../../assets/Icons/Vector.png")} style={{width : 20 , height : 20}}/>}
             {!disabledLabel && <Text style={[styles.label,labelStyle]}>{label}</Text>}
-            <TextInput secureTextEntry={passwordField} placeholder={placeholder} onChangeText={handleChange} value={value} style={[styles.inputField,inputStyles]}/>
+            <TextInput placeholderTextColor={placeholderTextColor} secureTextEntry={passwordField} placeholder={placeholder} onChangeText={handleChange} value={value} style={[styles.inputField,inputStyles]}/>
         </View>
     )
 }
