@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { KeyboardAvoidingView, Platform, View } from "react-native"
+import { KeyboardAvoidingView, Platform, SafeAreaView, View } from "react-native"
 import TabBarNavigator from "./navigations/TabBarNavigator";
 import AuthNavigator from "./navigations/AuthNavigator";
 import OnBoardingScreen from "./screens/onboardingscreens";
@@ -15,28 +15,31 @@ const Loading = () => {
     const onBoardingDone = PersistStore((state: any) => state.onBoardingDone);
     const _hasHydrated = PersistStore((state: any) => state._hasHydrated);
     const fetchConfig = PersistStore((state: any) => state.fetchConfig);
-    useEffect(()=>{
+    useEffect(() => {
         if (!_hasHydrated) return;
         fetchConfig();
-        setTimeout(()=>{
+        setTimeout(() => {
             SplashScreen.hide();
-    
-    
-        },0)
-    },[_hasHydrated]) 
+
+
+        }, 500)
+    }, [_hasHydrated])
     return (
-        <KeyboardAvoidingView style={{ flex : 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-            {
-                onBoardingDone
-                    ? true
-                        ?
-                        <HomeNavigator />
+        <SafeAreaView style={{ flex: 1 }}>
+            <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+                {
+                    onBoardingDone
+                        ? true
+                            ?
+                            <HomeNavigator />
+                            :
+                            <AuthNavigator />
                         :
-                        <AuthNavigator />
-                    :
-                    <OnBoardingScreen />
-            }
-        </KeyboardAvoidingView>
+                        <OnBoardingScreen />
+                }
+            </KeyboardAvoidingView>
+        </SafeAreaView>
+
     )
 }
 

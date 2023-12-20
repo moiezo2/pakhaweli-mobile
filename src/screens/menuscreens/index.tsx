@@ -37,7 +37,7 @@ const MenuScreen = ({ navigation }: SectionProps) => {
     }, [menuData])
 
     const renderItem = ({ item, index }) => (
-        <View key={item.type} style={{ backgroundColor: '#FFFFFF', marginTop: index == 0 ? 0 : 20, marginBottom: index == menu.length - 1 ? 80 : 0, width: '95%' }}>
+        <View key={item.type} style={{ backgroundColor: '#FFFFFF', marginTop: index == 0 ? 0 : 20, marginBottom: index == menu.length - 1 ? 80 : 0, width: wp('95%') }}>
             <View style={{ width: '88%', marginVertical: 10, flexDirection: 'row', columnGap: 5 }}>{item.type.split(' ').map((value, index) => <Text style={{ color: index == item.type.split(' ').length - 1 ? themeColor : '#393A3A', fontSize: getScaledFont(18), fontWeight: '700' }}>{value}</Text>)}</View>
             {item.data.map((value, subIndex) => (
                 <MenueItemCard key={value.id} {...value} sectionEnd={subIndex == item.data.length - 1} />
@@ -68,7 +68,7 @@ const MenuScreen = ({ navigation }: SectionProps) => {
                     ref={flatlistRef}
                     stickyHeaderIndices={[0]}
                     style={{ maxHeight: '100%' }}
-                    ListHeaderComponentStyle={{ height: 35, width: wp('97.5%'), backgroundColor: '#FFFFFF' }}
+                    ListHeaderComponentStyle={{ height: 35, width: wp('100%'), backgroundColor: '#FFFFFF',paddingHorizontal : '2.5%' }}
                     contentContainerStyle={{ width: wp('100%'), alignItems: 'center', justifyContent: 'center' }}
                     ListHeaderComponent={() => (<ScrollView horizontal style={{ height: '100%' }} contentContainerStyle={{ alignItems: 'flex-start', columnGap: 10 }} >{menu.map((val, index) => (
                         <TouchableOpacity key={val.title} onPress={() => flatlistRef?.current?.scrollToIndex({

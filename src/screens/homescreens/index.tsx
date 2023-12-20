@@ -8,6 +8,7 @@ import {
     TextInput,
     ScrollView,
     Image,
+    Platform,
 } from 'react-native';
 import { NavigationProp } from '@react-navigation/native';
 import Carousel from 'react-native-snap-carousel';
@@ -50,7 +51,7 @@ const HomeScreen = ({ navigation }: SectionProps) => {
     },[loading])
     return (
         <View style={styles.container}>
-            <View style={{ flex: 1, minHeight: hp('10%'), rowGap: 20, alignItems: 'center' }}>
+            <View style={{ flex: 1, minHeight: hp('10%'),maxHeight : '47.5%', rowGap: 20, alignItems: 'center' }}>
                 <Text style={{ fontSize: getScaledFont(32), fontWeight: 'bold', color: '#000000', width: wp('50%'), marginTop: hp('3%'),alignSelf : 'flex-start',marginLeft : '2.5%' }}><Text style={{color : themeColor}}>Delicious</Text> food for you</Text>
                 <Carousel
                     // ref={(c) => { this._carousel = c; }}
@@ -66,8 +67,8 @@ const HomeScreen = ({ navigation }: SectionProps) => {
                 />
                 {/* <InputField disabledLabel inputStyles={{height : '100%', width : '90%', fontSize : getScaledFont(20), fontWeight : 'bold'}} placeholder='Search' containerStyle={styles.searchField}/> */}
             </View>
-            <Text style={{ textAlign: 'left', width: '95%', fontSize: getScaledFont(24), fontWeight: '700', color: '#000000' }}><Text style={{color : themeColor}}>Exclusive</Text> Deals</Text>
-            <ScrollView showsHorizontalScrollIndicator={false} contentContainerStyle={{ justifyContent: 'center', alignItems: 'center', columnGap: 20, height: hp('45%') }} horizontal style={{ flex: 1, flexDirection: 'row', paddingVertical: '5%' }}>
+            <Text style={{ textAlign: 'left', width: '95%', fontSize: getScaledFont(24), fontWeight: '700', color: '#000000' ,marginTop : 0}}><Text style={{color : themeColor}}>Exclusive</Text> Deals</Text>
+            <ScrollView showsHorizontalScrollIndicator={false} contentContainerStyle={{ justifyContent: 'center', alignItems: 'center', columnGap: 20, maxHeight: Platform.OS == 'ios' ? hp('100%') : '97.5%' }} horizontal style={{ flex: 1, flexDirection: 'row', paddingVertical: '5%'}}>
                 {
                     !dealsLoading ?
                     dealsData.map(data => (
@@ -89,7 +90,7 @@ const styles = StyleSheet.create({
         // marginHorizontal: 10,
         maxHeight: hp('100%'),
         // paddingLeft: '2.5%',
-        paddingBottom : '20%',
+        paddingBottom : '0%',
         backgroundColor: '#FFFFFF',
         justifyContent: 'center',
         alignItems: 'center'

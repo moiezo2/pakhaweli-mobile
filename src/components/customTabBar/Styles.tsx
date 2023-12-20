@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import { appBgColour } from "../../constants";
 import { heightPercentageToDP as hp,widthPercentageToDP as wp } from "../common/ResponsiveScreen";
 
@@ -11,7 +11,7 @@ export const bottomTabBarstyles = StyleSheet.create({
         height : hp('8%'),
         width : '90%',
         position : 'absolute',
-        bottom : 15,
+        bottom : Platform.OS == 'ios' ? 5 : 15,
         borderRadius : wp('20%')
     },
     tabContainer : {

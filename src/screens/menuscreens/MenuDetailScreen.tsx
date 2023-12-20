@@ -7,6 +7,7 @@ import { CheckBox, Icon } from '@rneui/themed';
 import { themeColor } from '../../constants';
 import { heightPercentageToDP, widthPercentageToDP as wp } from '../../components/common/ResponsiveScreen';
 import { useCartStore } from '../../stores/cartStore';
+import LazyImage from '../../components/common/LazyImage';
 
 const MenuDetailScreen = ({ route, navigation }) => {
     // const navigation = useNavigation();
@@ -15,11 +16,12 @@ const MenuDetailScreen = ({ route, navigation }) => {
     const { imageUrl, title, description, variation, id, rating } = route.params;
     const [selectedIndex, setIndex] = useState(0);
     const [quantity, setQuantity] = useState(1);
-    console.log('check--->', route)
-
     return (
         <View style={styles.container}>
-            <Image source={{ uri: imageUrl }} style={styles.image} />
+            <LazyImage imageUrl={imageUrl} style={styles.image} />
+            <Button onPress={()=> navigation.goBack()} containerStyle={{backgroundColor : 'transparent',position : 'absolute',width  : '8%',padding :5,left : 15,top : 20}}>
+                <Image style={{width : '100%',height : undefined,aspectRatio : 1.25}} source={require('../../assets/Icons/backIcon.png')} />
+            </Button>
             <View style={styles.optionContainer}>
                 <Text style={styles.title}>{title}</Text>
                 <Text style={styles.description}>{description ? description : 'Lorem ipsum dolor sit amet, consectetuer adipiscingelit, sed diam nonummy nibh euismod.'}</Text>
@@ -53,13 +55,13 @@ const MenuDetailScreen = ({ route, navigation }) => {
             <View style={styles.quantityContainer}>
                 <Text style={styles.qunatityTitle}>Quantity :</Text>
                 <View style={styles.qunatityBody}>
-                    <Button disabled={quantity == 1 ? true : false} onPress={()=> setQuantity(quantity - 1)} text={'-'} textStyle={styles.quantitySign} containerStyle={styles.quantityButton}/>
+                    <Button disabled={quantity == 1 ? true : false} onPress={() => setQuantity(quantity - 1)} text={'-'} textStyle={styles.quantitySign} containerStyle={styles.quantityButton} />
                     <Text style={styles.qunatity}>{quantity}</Text>
-                    <Button onPress={()=> setQuantity(quantity + 1)} text={'+'} textStyle={styles.quantitySign} containerStyle={styles.quantityButton}/>
+                    <Button onPress={() => setQuantity(quantity + 1)} text={'+'} textStyle={styles.quantitySign} containerStyle={styles.quantityButton} />
                 </View>
             </View>
             <Button onPress={() => {
-                addToCart({ title: `${title} (${variation[selectedIndex]?.title})`, price: variation[selectedIndex]?.price * quantity, imageUrl, rating, description, id })
+                addToCart({ title: `${title} (${variation[selectedIndex]?.title})`, price: variation[selectedIndex]?.price * quantity, imageUrl, rating, description, id, quantity: quantity })
                 navigation.goBack()
             }} text={'Add to cart'} textStyle={{ fontSize: getScaledFont(18) }} containerStyle={{ width: '90%', height: 50, borderRadius: 10, position: 'absolute', bottom: 10 }} />
         </View>
@@ -131,55 +133,55 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingRight: 20
     },
-    quantityContainer : {
-        flexDirection: 'row', 
-        height: '10%', 
-        justifyContent: 'space-between', 
-        width: '90%', 
+    quantityContainer: {
+        flexDirection: 'row',
+        height: '10%',
+        justifyContent: 'space-between',
+        width: '85%',
         alignItems: 'center'
     },
-    qunatityTitle : { 
+    qunatityTitle: {
         color: '#000000',
-        fontWeight : '700' 
+        fontWeight: '700'
     },
-    qunatityBody : { 
-        flexDirection: 'row', 
-        height: '100%', 
-        justifyContent: 'center', 
-        width: '20%', 
-        alignItems: 'center', 
-        columnGap : 10 
+    qunatityBody: {
+        flexDirection: 'row',
+        height: '100%',
+        justifyContent: 'center',
+        width: '20%',
+        alignItems: 'center',
+        columnGap: 10
     },
-    quantityButton : {
-        width : '40%',
-        borderRadius : wp('70%'), 
-        height : undefined,
-        aspectRatio : 1,
-        justifyContent: 'center', 
+    quantityButton: {
+        width: '40%',
+        borderRadius: wp('70%'),
+        height: undefined,
+        aspectRatio: 1,
+        justifyContent: 'center',
         alignItems: 'center'
     },
-    quantitySign : {
-        fontSize : getScaledFont(16)
+    quantitySign: {
+        fontSize: getScaledFont(16)
     },
-    qunatity : { 
-        color: '#000000' 
+    qunatity: {
+        color: '#000000'
     },
-    radioContainer : {
-        backgroundColor: '#F2F2F2', 
-        width: '50%', 
-        marginLeft: 0, 
-        margin: 0, 
-        paddingHorizontal: 0 
+    radioContainer: {
+        backgroundColor: '#F2F2F2',
+        width: '50%',
+        marginLeft: 0,
+        margin: 0,
+        paddingHorizontal: 0
     },
-    checkboxContainer : { 
-        flexDirection: 'row', 
-        justifyContent: 'space-between', 
-        alignItems: 'center', 
-        paddingRight: 20 
+    checkboxContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingRight: 20
     },
-    optionPrice : { 
-        width: '50%', 
-        color: '#999999', 
-        textAlign: 'right' 
+    optionPrice: {
+        width: '50%',
+        color: '#999999',
+        textAlign: 'right'
     }
 })

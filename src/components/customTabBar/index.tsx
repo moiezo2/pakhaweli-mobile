@@ -79,7 +79,7 @@ const CustomTabBar = ({ state, navigation, descriptors, animation, tabBarStyle, 
                     };
 
                     return (
-                        <View key={route.key} style={[bottomTabBarstyles.tabContainer, tabBarStyle, { borderRightWidth: index == state.routes.length - 1 ? 0 : 0.5 }]}>
+                        <View key={route.key} style={[bottomTabBarstyles.tabContainer, tabBarStyle, { borderRightWidth: index == state.routes.length - 1 ? 0 : 0.5}]}>
                             {tabBarBadge > 0 && <View style={styles.badgeIconContainer}><Text style={{ color: '#FFFFFF', fontSize : getScaledFont(11) }}>{tabBarBadge}</Text></View>}
                             <TouchableOpacity onPress={onPress} style={bottomTabBarstyles.pressableStyle}>
                                 {TabBarIcon && <TabBarIcon color={isFocused ? tabBarActiveTintColor : tabBarInactiveTintColor} size={wp('7%')} />}

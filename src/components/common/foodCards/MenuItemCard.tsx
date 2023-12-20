@@ -29,7 +29,7 @@ const MenueItemCard: React.FC<MenuCardParams> = ({ title, price, imageUrl, ratin
         // onPress={()=> navigation.navigate('MenuDetailScreen',{title, price, imageUrl, rating, description, id,variation})}
         >
             <LazyImage imageUrl={imageUrl} dafaultImage={require('../../../assets/Images/food.jpg')} resizeMode='cover' style={{ width: undefined, height: '100%', aspectRatio: 1, marginRight: 5, borderTopLeftRadius: wp('7%'), borderBottomLeftRadius: wp('7%') }} />
-            <View style={{ width: '64%', padding: 10, rowGap: 10, backgroundColor: '#F2F2F2', height: '100%', borderTopRightRadius: wp('7%'), borderBottomRightRadius: wp('7%') }}>
+            <View style={{ width: wp('64%'), padding: 10, rowGap: 10, backgroundColor: '#F2F2F2', height: '100%', borderTopRightRadius: wp('7%'), borderBottomRightRadius: wp('7%') }}>
                 <View style={{ flexDirection: 'row', width : '95%', justifyContent : 'space-between', alignItems : 'flex-end' }}>
                     <Text numberOfLines={1} style={{ width: '85%', textAlign: 'left', fontSize: getScaledFont(13), fontWeight: '600', color: '#000000' }}>{title}</Text>
                     <HeartIcon fill={false ? themeColor : "none"} stroke={'#888888'} />

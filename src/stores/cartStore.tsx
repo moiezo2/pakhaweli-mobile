@@ -13,7 +13,7 @@ export const useCartStore = create(persist((set,get : any) => ({
         if(index > -1){
             cartState[index] ={id : item.id,description : item.description, title : item.title,imageUrl : item.imageUrl,price : item.price, quantity : cartState[index].quantity + 1}
         }else{
-            cartState.push({id : item.id,description : item.description, title : item.title,imageUrl : item.imageUrl,price : item.price, quantity : 1})
+            cartState.push({id : item.id,description : item.description, title : item.title,imageUrl : item.imageUrl,price : item.price, quantity : item.quantity ? item.quantity : 1})
         }
         set((state: any) => ({ cart: [...cartState], subTotal : state.subTotal + parseFloat(item.price) }))
     },

@@ -5,7 +5,8 @@ export type MenuCardParams = {
     price : String,
     rating : number,
     description? : String,
-    variation? : []
+    variation? : [],
+    quantity? : number
 }
 export type CheckoutCardParams = {
     id?: String,
@@ -17,7 +18,7 @@ export type CheckoutCardParams = {
 }
 
 export type ButtonProps = {
-    text : String,
+    text? : String,
     onPress? : Function,
     containerStyle? : object,
     textStyle? : object,
